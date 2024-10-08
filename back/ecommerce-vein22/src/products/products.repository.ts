@@ -1,24 +1,42 @@
 import { Injectable } from "@nestjs/common/decorators";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Product } from "./entities/product.entity";
+import { Repository } from 'typeorm';
+import { CreateProductDto } from "./dto/create-product.dto";
+import { UpdateProductDto } from "./dto/update-product.dto";
+
 
 @Injectable()
 export class ProductsRepository {
-    private products = [
-        {
-            id:"number",
+    constructor(
+        @InjectRepository(Product)
+        private readonly productRepository: Repository<Product>,
+      ) {}
 
-            name: "string",
-
-            description: "string",
-
-            price: "number",
-
-            stock: "boolean",
-
-            imgUrl: "string"
+      async getProducts(page: number, limit: number): Promise<Product[]> {
+        return await this.productRepository.find({
+            take: limit,
+            skip: (page - 1) * limit,
+          });
         }
-    ];
 
-    async getAllProducts() {
-        return this.products;
-    }
+        async getProductsById(id: string): Promise<Product>{
+         return await this.productRepository.findOneBy({id});    
+        }
+
+        async createProduct(createProductDto: CreateProductDto): Promise<Product> {
+            const newProduct = this.productRepository.create(createProductDto);
+            return await this.productRepository.save(newProduct);
+        }
+
+             
+        async updateProductById(id: string, updateProductDto: UpdateProductDto): Promise<Product> {
+            await this.productRepository.update(id, updateProductDto);
+            return this.getProductsById(id);
+        }
+
+        async deleteProductById(id: string): Promise<{id:string}> {
+            await this.productRepository.delete(id);
+            return { id };
+        }
 }
