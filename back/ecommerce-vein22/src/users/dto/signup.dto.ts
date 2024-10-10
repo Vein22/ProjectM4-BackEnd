@@ -12,6 +12,7 @@ export class SignUpDto {
     example: 'John Doe',
     description: 'El nombre del usuario.'
   })
+    @IsString()
     @IsNotEmpty()
     @MinLength(3)
     @MaxLength(80)
@@ -26,6 +27,7 @@ export class SignUpDto {
     example: 'user@example.com',
     description: 'El correo electrónico del usuario.'
   })
+    @IsString()
     @IsEmail()
     @IsNotEmpty()
     email: string;
@@ -40,6 +42,7 @@ export class SignUpDto {
       description: 'La contraseña debe ser difícil de descifrar.'
     })
     @IsNotEmpty()
+    @IsString()
     @MinLength(8)
     @MaxLength(20)
     @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/, {
@@ -70,6 +73,7 @@ export class SignUpDto {
       description: 'Dirección de domicilio.'
     })
     @IsNotEmpty()
+    @IsString()
     @MinLength(3)
     @MaxLength(80)
     address: string;
@@ -83,6 +87,7 @@ export class SignUpDto {
       description: 'Número de telefono personal.'
     })
     @IsNotEmpty()
+    @IsString()
     phone: number;
 
 
@@ -95,6 +100,7 @@ export class SignUpDto {
       description: 'Pais residente.'
     })
     @IsNotEmpty()
+    @IsString()
     @MinLength(5)
     @MaxLength(20)
     country: string;
@@ -109,6 +115,7 @@ export class SignUpDto {
       })
     @IsNotEmpty()
     @MinLength(5)
+    @IsString()
     @MaxLength(20)
     city: string;
 
