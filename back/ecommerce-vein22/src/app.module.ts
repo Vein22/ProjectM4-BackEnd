@@ -14,6 +14,7 @@ import { Order } from './orders/entities/order.entity';
 import { OrderDetail } from './order-details/entities/order-detail.entity';
 import { Product } from './products/entities/product.entity';
 import { Category } from './categories/entities/category.entity';
+import { FilesModule } from './files/files.module';
 
 
 @Module({
@@ -28,7 +29,7 @@ import { Category } from './categories/entities/category.entity';
       entities: [User, Order, OrderDetail, Product, Category]
     })
   }),
-  UsersModule, ProductsModule, AuthModule, CategoriesModule, OrdersModule, JwtModule.register({
+  UsersModule, ProductsModule, AuthModule, CategoriesModule, OrdersModule, FilesModule, JwtModule.register({
     global: true,
     signOptions: { expiresIn: '1h' },
     secret: process.env.JWT_SECRET,

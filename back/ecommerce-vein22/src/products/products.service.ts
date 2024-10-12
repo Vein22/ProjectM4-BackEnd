@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateProductDto } from "./dto/create-product.dto";
 import { UpdateProductDto } from "./dto/update-product.dto";
 import { Product } from "./entities/product.entity";
@@ -27,4 +27,14 @@ export class ProductsService {
     async deleteProductById(id: string): Promise<{id:string}>  {
     return this.productsRepository.deleteProductById(id);
     }
+
+    async updateProductImage(id: string, imageUrl: string): Promise<Product> {
+        const product = await this.productsRepository.getProductsById( id );
+        if (!product) {
+          throw new NotFoundException(`Product with ID ${id} not found`);
+        }
+    
+        product.imgUrl = imageUrl;
+        return this.productsRepository.createProduct(product);
+      }
 }
