@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Put, Delete, HttpCode, HttpStatus, Patch, Param, Body, NotFoundException, Query, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Put, Delete, HttpCode, HttpStatus, Patch, Param, Body, NotFoundException, Query, UseGuards, ParseUUIDPipe } from "@nestjs/common";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { UsersService } from "./users.service";
 import { RolesGuard } from "../auth/guard/roles.guard";
 import { AuthGuard } from "../auth/guard/auth.guard";
 import { Role } from "src/auth/roles/roles.enum";
 import { Roles } from "src/decorators/roles.decorator";
+import { IsUUID } from "class-validator";
 
 
 @Controller('users')
@@ -22,7 +23,8 @@ export class UsersController {
     @HttpCode(200)
     @UseGuards(AuthGuard)
     @Get(":id")
-    async getUserById(@Param("id") id: string) {
+    async getUserById(@Param("id", new ParseUUIDPipe()) id: string) {
+      if(!IsUUID(4, {each: true})) throw new Error('Invalid UUID');
         return await this.usersService.getUserById(id);
     }
 

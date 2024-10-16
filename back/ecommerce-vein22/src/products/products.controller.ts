@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Delete, Put, Param, UseGuards, Body, HttpCode, NotFoundException, Query  } from "@nestjs/common";
+import { Controller, Get, Post, Delete, Put, Param, UseGuards, Body, HttpCode, NotFoundException, Query, ParseUUIDPipe  } from "@nestjs/common";
 import { ProductsService } from "./products.service";
 import { AuthGuard } from "../auth/guard/auth.guard";
 import { CreateProductDto } from "./dto/create-product.dto";
@@ -6,6 +6,7 @@ import { Roles } from "../decorators/roles.decorator";
 import { Role } from "../auth/roles/roles.enum";
 import { RolesGuard } from "../auth/guard/roles.guard";
 import { UpdateProductDto } from "./dto/update-product.dto";
+import { IsUUID } from "class-validator";
 
 
 
@@ -29,7 +30,8 @@ export class ProductsController {
 
       @HttpCode(200)
       @Get(':id')
-      async getProductsById(@Param('id') id: string) {
+      async getProductsById(@Param('id', new ParseUUIDPipe()) id: string) {
+        if(!IsUUID(4, {each: true})) throw new Error('Invalid UUID');
         return await this.productsServices.getProductsById(id);
       }
    
