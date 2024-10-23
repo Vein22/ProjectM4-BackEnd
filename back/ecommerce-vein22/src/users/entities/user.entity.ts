@@ -2,7 +2,7 @@ import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-valid
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinTable, ManyToMany,  ManyToOne } from 'typeorm';
 import {v4 as uuid} from "uuid";
 import { ApiProperty } from '@nestjs/swagger';
-import { Order } from 'src/orders/entities/order.entity';
+import { Order } from '../../orders/entities/order.entity';
 
 @Entity({ name: 'users' })
 export class User {

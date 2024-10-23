@@ -1,6 +1,6 @@
 import { Controller, Get, HttpCode, Post, ValidationPipe, Body } from "@nestjs/common";
-import { SignInDto } from "src/users/dto/signin.dto";
-import { SignUpDto } from "src/users/dto/signup.dto";
+import { SignInDto } from "../users/dto/signin.dto";
+import { SignUpDto } from "../users/dto/signup.dto";
 import { AuthService } from "./auth.service";
 
 @Controller('auth')

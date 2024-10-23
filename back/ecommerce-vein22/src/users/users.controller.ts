@@ -3,8 +3,8 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { UsersService } from "./users.service";
 import { RolesGuard } from "../auth/guard/roles.guard";
 import { AuthGuard } from "../auth/guard/auth.guard";
-import { Role } from "src/auth/roles/roles.enum";
-import { Roles } from "src/decorators/roles.decorator";
+import { Role } from "../auth/roles/roles.enum";
+import { Roles } from "../decorators/roles.decorator";
 import { IsUUID } from "class-validator";
 
 
