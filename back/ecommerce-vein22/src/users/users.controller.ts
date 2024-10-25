@@ -27,6 +27,7 @@ export class UsersController {
     @HttpCode(200)
     @ApiTags('Users')
     @ApiBearerAuth()
+    @UseGuards(AuthGuard)
     @Get(":id")
     async getUserById(@Param("id", new ParseUUIDPipe()) id: string) {
       if(!IsUUID(4, {each: true})) throw new Error('Invalid UUID');
