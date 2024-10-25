@@ -6,6 +6,7 @@ import { AuthGuard } from "../auth/guard/auth.guard";
 import { Role } from "../auth/roles/roles.enum";
 import { Roles } from "../decorators/roles.decorator";
 import { IsUUID } from "class-validator";
+import { ChangePasswordDto } from "./dto/changePassword.dto";
 
 
 @Controller('users')
@@ -21,7 +22,6 @@ export class UsersController {
     }
 
     @HttpCode(200)
-    @UseGuards(AuthGuard)
     @Get(":id")
     async getUserById(@Param("id", new ParseUUIDPipe()) id: string) {
       if(!IsUUID(4, {each: true})) throw new Error('Invalid UUID');
@@ -39,6 +39,12 @@ export class UsersController {
     @UseGuards(AuthGuard)
     @Delete(':id')
     async deleteUserById(@Param('id') id: string) {
-    return this.usersService.deleteUserById(id);
+      return this.usersService.deleteUserById(id);
   }
+
+  @UseGuards(AuthGuard)
+    @Patch(':id/change-password')
+    async changePassword(@Param('id') id: string, @Body() ChangePasswordDto:ChangePasswordDto){
+      return this.usersService.changePassword(id, ChangePasswordDto);
+    }
 }

@@ -53,4 +53,21 @@ export class UsersRepository {
         return { id };
       }
 
+      async updatePassword(id: string, newPassword: string): Promise<User> {
+        const user = await this.userRepository.findOne({
+          where: { id },
+          select: ["id", "password"]
+        });
+
+        user.password = newPassword;
+        return await this.userRepository.save(user);
+      }
+
+
+      async findById(id: string): Promise<User> {
+        const user = await this.userRepository.findOne({
+          where: { id }
+        });
+        return user;
+      }
 }
