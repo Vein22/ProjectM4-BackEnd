@@ -11,17 +11,17 @@ export class OrdersController {
 
   
   @ApiTags('Orders')
-  @Post()
-  @UseGuards(AuthGuard)
   @ApiBearerAuth()
+  @UseGuards(AuthGuard)
+  @Post()
   async createOrder(@Body() createOrderDto: CreateOrderDto): Promise<Order> {
     return this.ordersService.addOrder(createOrderDto);
   }
 
   @ApiTags('Orders')
-  @Get(':id')
-  @UseGuards(AuthGuard)
   @ApiBearerAuth()
+  @UseGuards(AuthGuard)
+  @Get(':id')
   async getOrder(@Param('id') id: string): Promise<Order> {
     return this.ordersService.getOrder(id);
   }

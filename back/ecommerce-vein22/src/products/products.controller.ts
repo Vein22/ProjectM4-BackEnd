@@ -7,6 +7,7 @@ import { Role } from "../auth/roles/roles.enum";
 import { RolesGuard } from "../auth/guard/roles.guard";
 import { UpdateProductDto } from "./dto/update-product.dto";
 import { IsUUID } from "class-validator";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
 
 
@@ -16,6 +17,8 @@ export class ProductsController {
     
 
       @HttpCode(201)
+      @ApiTags('Products')
+      @ApiBearerAuth()
       @Post("seeder")
       @UseGuards(AuthGuard) 
       async createProduct(@Body() createProductDto: CreateProductDto) {
@@ -23,27 +26,33 @@ export class ProductsController {
       }
 
       @HttpCode(200)
+      @ApiTags('Products')
       @Get()
       async getProducts(@Query('page') page: number=1, @Query('limit') limit: number=5){
         return await this.productsServices.getProducts(page, limit);
       }
 
       @HttpCode(200)
+      @ApiTags('Products')
       @Get(':id')
       async getProductsById(@Param('id', new ParseUUIDPipe()) id: string) {
         if(!IsUUID(4, {each: true})) throw new Error('Invalid UUID');
         return await this.productsServices.getProductsById(id);
       }
    
-      @Put(":id")
+      @ApiTags('Products')
+      @ApiBearerAuth()
       @Roles(Role.Admin)
       @UseGuards(AuthGuard, RolesGuard)
+      @Put(":id")
       async updateProductById(@Param("id") id: string, @Body() updateProductDto: UpdateProductDto) {
         return this.productsServices.updateProductById(id, updateProductDto)
       }
 
-      @Delete(':id')
+      @ApiTags('Products')
+      @ApiBearerAuth()
       @UseGuards(AuthGuard) 
+      @Delete(':id')
       async deleteProductById(@Param('id') id: string) {
         return await this.productsServices.deleteProductById(id);
       }

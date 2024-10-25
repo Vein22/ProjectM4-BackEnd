@@ -44,10 +44,10 @@ export class User {
 
    /**
      * Número de telefono personal.
-     * @example +58 214 378 6342.
+     * @example 58 214 378 6342.
      */
    @ApiProperty({
-    example: '+58 214 378 6342.',
+    example: '58 214 378 6342',
     description: 'Número de telefono personal.'
   })
   @Column({nullable: false })

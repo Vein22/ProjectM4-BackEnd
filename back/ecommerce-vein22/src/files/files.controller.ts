@@ -16,10 +16,10 @@ export class FilesController {
   ) {}
 
   @ApiTags('Files')
-  @Post('uploadImage/:id')
-  @UseGuards(AuthGuard)
   @ApiBearerAuth()
+  @UseGuards(AuthGuard)
   @UsePipes(ImageUploadPipe)
+  @Post('uploadImage/:id')
   @UseInterceptors(FileInterceptor('file'))
   async uploadImage(@Param('id') id: string, @UploadedFile(
     new ParseFilePipe({

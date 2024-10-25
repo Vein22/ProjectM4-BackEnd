@@ -7,6 +7,7 @@ import { Role } from "../auth/roles/roles.enum";
 import { Roles } from "../decorators/roles.decorator";
 import { IsUUID } from "class-validator";
 import { ChangePasswordDto } from "./dto/changePassword.dto";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
 
 @Controller('users')
@@ -14,6 +15,8 @@ export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
     @HttpCode(200)
+    @ApiTags('Users')
+    @ApiBearerAuth()
     @Roles(Role.Admin)
     @UseGuards(AuthGuard, RolesGuard)
     @Get()
@@ -22,6 +25,8 @@ export class UsersController {
     }
 
     @HttpCode(200)
+    @ApiTags('Users')
+    @ApiBearerAuth()
     @Get(":id")
     async getUserById(@Param("id", new ParseUUIDPipe()) id: string) {
       if(!IsUUID(4, {each: true})) throw new Error('Invalid UUID');
@@ -29,6 +34,8 @@ export class UsersController {
     }
 
     @HttpCode(200)
+    @ApiTags('Users')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Put(":id")
     async updateUserById(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto){
@@ -36,12 +43,16 @@ export class UsersController {
   }
 
     @HttpCode(200)
+    @ApiTags('Users')
+    @ApiBearerAuth()
     @UseGuards(AuthGuard)
     @Delete(':id')
     async deleteUserById(@Param('id') id: string) {
       return this.usersService.deleteUserById(id);
   }
 
+  @ApiTags('Users')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard)
     @Patch(':id/change-password')
     async changePassword(@Param('id') id: string, @Body() ChangePasswordDto:ChangePasswordDto){

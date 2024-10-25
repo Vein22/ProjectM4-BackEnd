@@ -1,6 +1,6 @@
 
 import { IsEmail, IsNotEmpty, IsString, MaxLength, IsOptional, MinLength, Matches, IsEmpty } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 
 export class SignUpDto {
 
@@ -87,7 +87,6 @@ export class SignUpDto {
       description: 'Número de telefono personal.'
     })
     @IsNotEmpty()
-    @IsString()
     phone: number;
 
 
@@ -119,6 +118,7 @@ export class SignUpDto {
     @MaxLength(20)
     city: string;
 
+    @ApiHideProperty()
     @IsEmpty()
     isAdmin: boolean;
 }
