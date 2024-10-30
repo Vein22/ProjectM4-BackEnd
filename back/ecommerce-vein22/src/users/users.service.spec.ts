@@ -1,7 +1,12 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { UsersRepository } from "./users.repository";
 import { UsersService } from "./users.service"
-import * as bcrypt from "bcrypt";
+import * as bcrypt from "../../node_modules/bcrypt";
+
+jest.mock('bcrypt', () => ({
+    compare: jest.fn(),
+    hash: jest.fn(),
+}));
 
 describe('UsersService', () => {
     let service: UsersService;
@@ -50,10 +55,10 @@ describe('UsersService', () => {
         const newPassword = 'newPassword';
         const hashedNewPassword = 'hashedNewPassword';
     
-        jest.spyOn(userRepository, 'findById').mockResolvedValue(mockUser);
-        jest.spyOn(bcrypt, 'compare').mockResolvedValue(true); 
-        jest.spyOn(bcrypt, 'hash').mockResolvedValue(hashedNewPassword);
-        jest.spyOn(userRepository, 'updatePassword').mockResolvedValue(mockUser);
+        userRepository.findById = jest.fn().mockResolvedValue(mockUser);
+        (bcrypt.compare as jest.Mock).mockResolvedValue(true);
+        (bcrypt.hash as jest.Mock).mockResolvedValue(hashedNewPassword);
+        userRepository.updatePassword = jest.fn().mockResolvedValue(mockUser);
     
         const result = await service.changePassword('1', { currentPassword: 'currentPassword', newPassword });
     
