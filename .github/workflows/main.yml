@@ -25,7 +25,7 @@ jobs:
       name: Build and push
       uses: docker/build-push-action@v5
       with:
-        context: .
-        file: ./Dockerfile
+        context: ./back/ecommerce-vein22
+        file: ./back/ecommerce-vein22/Dockerfile
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/pm4-backend:latest
