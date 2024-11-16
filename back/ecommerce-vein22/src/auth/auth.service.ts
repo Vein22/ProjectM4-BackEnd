@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { SignUpDto } from "../users/dto/signup.dto";
 import { UserResponseDto } from "../users/dto/response.user.dto";
+import { Role } from "./roles/roles.enum";
 
 
 
@@ -52,8 +53,9 @@ export class AuthService {
               sub: user.id,
               id: user.id,
               email: user.email,
+              roles: [ user.isAdmin ? Role.Admin : Role.User]
             };
-        
+            
           const token = this.jwtService.sign(payload);
     
         return { success: 'Sign in successfully', token, };
