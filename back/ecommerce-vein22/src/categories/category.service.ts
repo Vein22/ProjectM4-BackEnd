@@ -10,7 +10,11 @@ export class CategoriesService {
     return this.categoryRepository.getCategories();
   }
 
-  async addCategories(categories: Category[]): Promise<void> {
-    return this.categoryRepository.addCategories(categories);
+  async seedCategories(categories: Partial<{ name: string }[]>): Promise<string> {
+    return await this.categoryRepository.seedCategories(categories);
   }
+
+  async deleteCategoryById(id: string): Promise<{id:string}>  {
+    return this.categoryRepository.deleteCategoryById(id);
+    }
 }

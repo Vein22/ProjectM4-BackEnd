@@ -14,12 +14,19 @@ export class CategoryRepository {
     return this.categoryRepository.find();
   }
 
-  async addCategories(categories: Category[]): Promise<void> {
-    for (const category of categories) {
-      const existingCategory = await this.categoryRepository.findOne({ where: { name: category.name } });
-      if (!existingCategory) {
-        await this.categoryRepository.save(category);
-      }
+  async seedCategories(categories: Partial<{ name: string }[]>): Promise<any> {
+    const existingCategories = await this.getCategories();
+    const names = existingCategories.map((cat) => cat.name.toLowerCase());
+    const newCategories = categories.filter((cat) => !names.includes(cat.name.toLowerCase()));
+    if (newCategories.length > 0) {
+      await this.categoryRepository.save(newCategories);
+      return 'Categories seeded successfully';
     }
+      return `There's not new Categories to seed`;
+  }
+
+  async deleteCategoryById(id: string): Promise<{id:string}> {
+    await this.categoryRepository.delete(id);
+     return { id };
   }
 }

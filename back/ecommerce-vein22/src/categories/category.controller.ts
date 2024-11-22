@@ -1,7 +1,9 @@
-import { Controller, Post, Body, Get, HttpCode } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger/dist/decorators';
+import { Controller, Post, Body, Get, HttpCode, UseGuards, Delete, Param } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger/dist/decorators';
 import { CategoriesService } from './category.service';
 import { Category } from './entities/category.entity';
+import { categoriesData } from './categories'
+import { AuthGuard } from 'src/auth/guard/auth.guard';
 
 @Controller('categories')
 export class CategoriesController {
@@ -16,7 +18,15 @@ export class CategoriesController {
 
   @ApiTags('Categories')
   @Post('seeder')
-  async addCategories(@Body() categories: Category[]): Promise<void> {
-    return this.categoriesService.addCategories(categories);
+  async seedCategories(): Promise<string> {
+    return this.categoriesService.seedCategories(categoriesData);
+  }
+
+  @ApiTags('Categories')
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard) 
+  @Delete(':id')
+  async deleteCategoryById(@Param('id') id: string) {
+    return await this.categoriesService.deleteCategoryById(id);
   }
 }
