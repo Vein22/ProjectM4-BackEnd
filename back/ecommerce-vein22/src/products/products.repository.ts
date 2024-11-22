@@ -24,11 +24,21 @@ export class ProductsRepository {
          return await this.productRepository.findOneBy({id});    
         }
 
-        async createProduct(createProductDto: CreateProductDto): Promise<Product> {
+        async seedProducts(products: Partial<Product[]>): Promise<string> {
+            const existingProducts = await this.productRepository.find();
+            const names = existingProducts.map((prod) => prod.name.toLowerCase());
+            const newProducts = products.filter((prod) => !names.includes(prod.name.toLowerCase()));
+            if(newProducts.length > 0) {
+                await this.productRepository.save(newProducts, { reload: true });
+                return 'Products seeded successfully'
+            }
+            return `There's not new Products to load`;
+        }
+
+        async updateProductImage(createProductDto: CreateProductDto): Promise<Product> {
             const newProduct = this.productRepository.create(createProductDto);
             return await this.productRepository.save(newProduct);
         }
-
              
         async updateProductById(id: string, updateProductDto: UpdateProductDto): Promise<Product> {
             await this.productRepository.update(id, updateProductDto);

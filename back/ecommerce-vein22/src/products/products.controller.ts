@@ -8,6 +8,7 @@ import { RolesGuard } from "../auth/guard/roles.guard";
 import { UpdateProductDto } from "./dto/update-product.dto";
 import { IsUUID } from "class-validator";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { productsData } from "./products";
 
 
 
@@ -21,8 +22,8 @@ export class ProductsController {
       @ApiBearerAuth()
       @Post("seeder")
       @UseGuards(AuthGuard) 
-      async createProduct(@Body() createProductDto: CreateProductDto) {
-          return this.productsServices.createProduct(createProductDto)
+      async seedProducts(): Promise<string> {
+          return this.productsServices.seedProducts(productsData)
       }
 
       @HttpCode(200)

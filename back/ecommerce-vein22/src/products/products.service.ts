@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { CategoryRepository } from "src/categories/category.repository";
 import { CreateProductDto } from "./dto/create-product.dto";
 import { UpdateProductDto } from "./dto/update-product.dto";
 import { Product } from "./entities/product.entity";
@@ -6,10 +7,24 @@ import { ProductsRepository } from "./products.repository";
 
 @Injectable()
 export class ProductsService {
-    constructor(private productsRepository: ProductsRepository){}
+    constructor(
+      private productsRepository: ProductsRepository,
+      private categoriesRepository: CategoryRepository,
+      ){}
     
-    async createProduct(createProductDto: CreateProductDto): Promise<Product> {
-        return await this.productsRepository.createProduct(createProductDto);
+    async seedProducts(data: any[]): Promise<string> {
+      const categories = await this.categoriesRepository.getCategories();
+
+      const products = data.map((prod) => {
+        const category = categories.find((cat) => cat.name.toLowerCase() === prod.category.toLowerCase());
+
+        if(!category) {
+          throw new Error(`Category ${prod.category} not found for product "${prod.name}"`);
+        }
+
+        return {...prod, category};
+      })
+        return await this.productsRepository.seedProducts(products);
     }
 
     async getProducts(page: number, limit: number): Promise<Product[]> {
@@ -35,6 +50,6 @@ export class ProductsService {
         }
     
         product.imgUrl = imageUrl;
-        return this.productsRepository.createProduct(product);
+        return this.productsRepository.updateProductImage(product);
       }
 }
