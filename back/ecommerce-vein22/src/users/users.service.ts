@@ -23,10 +23,6 @@ export class UsersService {
         return this.usersRepository.getUserById(id);
     }
 
-    async createUser(createUserDto: CreateUserDto): Promise<User> {
-        return await this.usersRepository.createUser(createUserDto);
-      }
-
     async updateUserById(id: string, updateUserDto: UpdateUserDto) {
         return this.usersRepository.updateUserById(id, updateUserDto);
     }

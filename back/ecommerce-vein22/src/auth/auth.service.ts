@@ -5,17 +5,27 @@ import * as bcrypt from 'bcrypt';
 import { SignUpDto } from "../users/dto/signup.dto";
 import { UserResponseDto } from "../users/dto/response.user.dto";
 import { Role } from "./roles/roles.enum";
+import { UsersRepository } from "src/users/users.repository";
 
 
 
 @Injectable()
 export class AuthService {
     constructor(private readonly usersService: UsersService,
+        private readonly usersRepository: UsersRepository,
         private readonly jwtService: JwtService,
 ) {}
 
     getAuth () {
         return "Get Auth";
+    }
+
+    async passwordEncrypter(password: string): Promise<string> {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      if (!hashedPassword) {
+        throw new BadRequestException('Password could not be hashed');
+      }
+      return hashedPassword;
     }
 
     async signUp( signUpUser: SignUpDto) {
@@ -28,11 +38,9 @@ export class AuthService {
           throw new BadRequestException('Passwords do not match');
         }
     
-        const hashedPasword = await bcrypt.hash(signUpUser.password, 10);
-        if(!hashedPasword) {
-          throw new BadRequestException('Password could not be hashed')
-        }
-          this.usersService.createUser({...signUpUser, password: hashedPasword})
+        const hashedPassword = await this.passwordEncrypter(signUpUser.password)
+        
+          this.usersRepository.createUser({...signUpUser, password: hashedPassword})
           return new UserResponseDto(signUpUser)
       }
         
