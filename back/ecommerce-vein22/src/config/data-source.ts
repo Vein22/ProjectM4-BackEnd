@@ -9,7 +9,7 @@ import { registerAs } from "@nestjs/config";
         const postgresDataSourceOptions: DataSourceOptions = {
         type: "postgres",
         host: process.env.DB_HOST,
-        port: parseInt(process.env.DB_PORT, 10),
+        port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined,
         username: process.env.DB_USER,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
