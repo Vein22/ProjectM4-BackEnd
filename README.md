@@ -147,4 +147,5 @@ Para ejecutar el proyecto en Docker, usa:
 
 
 📜 Licencia
+
     Este proyecto está bajo la MIT License.
