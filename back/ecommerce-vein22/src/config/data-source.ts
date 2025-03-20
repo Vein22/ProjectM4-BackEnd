@@ -3,7 +3,7 @@ import { config as dotenvConfig } from "dotenv"
 import { registerAs } from "@nestjs/config";
         
         dotenvConfig({
-            path: ".env.development"
+            path: ".env"
         });
 
         const postgresDataSourceOptions: DataSourceOptions = {
