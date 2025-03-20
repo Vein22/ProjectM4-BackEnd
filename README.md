@@ -53,84 +53,84 @@ Tecnologías Utilizadas
 
 
 
-    Instalación y Configuración
+Instalación y Configuración
 1️⃣ Clonar el repositorio
 
-git clone https://github.com/Vein22/ProjectM4-BackEnd.git
-cd ProjectM4-BackEnd
+    git clone https://github.com/Vein22/ProjectM4-BackEnd.git
+    cd ProjectM4-BackEnd
 
 2️⃣ Instalar dependencias
 
-npm install
+    npm install
 
 3️⃣ Configurar las variables de entorno
 
-Copia el archivo .env.example y renómbralo como .env, luego completa las variables:
+    Copia el archivo .env.example y renómbralo como .env, luego completa las variables:
 
 # ------------ DATABASE CONFIG ------------
 
-DB_HOST = tu_db_host
-DB_PORT = tu_db_port
-DB_USER = tu_db_user
-DB_PASSWORD = tu_db_password
-DB_NAME = tu_db_name
-CLOUDINARY_CLOUD_NAME = tu_cloudinary_name
-CLOUDINARY_API_SECRET = tu_cloudinary_secret
-CLOUDINARY_API_KEY = tu_cloudinary_key
+    DB_HOST = tu_db_host
+    DB_PORT = tu_db_port
+    DB_USER = tu_db_user
+    DB_PASSWORD = tu_db_password
+    DB_NAME = tu_db_name
+    CLOUDINARY_CLOUD_NAME = tu_cloudinary_name
+    CLOUDINARY_API_SECRET = tu_cloudinary_secret
+    CLOUDINARY_API_KEY = tu_cloudinary_key
 
 # ------------ SERVER CONFIG ------------
 
-PORT = 4000
+    PORT = 4000
 
 # ------------ JWT CONFIG ------------
 
-JWT_SECRET=tu_jwt_secreto
+    JWT_SECRET=tu_jwt_secreto
 
 
 
 4️⃣ Ejecutar el proyecto
 Modo desarrollo
 
-npm run start:dev
+    npm run start:dev
 
 Modo producción
 
-npm run build
-npm run start:prod
+    npm run build
+    npm run start:prod
 
 5️⃣ Ejecutar migraciones de la base de datos
 
-npm run typeorm migration:run
+    npm run typeorm migration:run
 
 
 
 🧪 Pruebas  
 Para ejecutar las pruebas unitarias:  
 
-```sh
-npm run test
-```
+
+    npm run test
+
 
 
 📖 Documentación API con Swagger  
 Una vez que el servidor esté en ejecución, puedes acceder a la documentación interactiva en:  
 
-http://localhost:4000/api
+    http://localhost:4000/api
 
 
 
 🔥 Seeders (Carga Inicial de Datos)
 Para precargar categorías y productos, ejecuta:
 
-curl -X POST http://localhost:3000/categories/seeder
-curl -X POST http://localhost:3000/products/seeder
+    curl -X POST http://localhost:3000/categories/seeder
+    curl -X POST http://localhost:3000/products/seeder
 
 
 
 🐳 Uso con Docker
 Para ejecutar el proyecto en Docker, usa:
 
-docker compose up -d
+    docker compose up -d
 
 
 
