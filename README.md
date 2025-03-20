@@ -4,7 +4,7 @@ Este proyecto es una API RESTful para un e-commerce, desarrollada con NestJS y T
 
 
 
-Tecnologías Utilizadas
+##Tecnologías Utilizadas
 
     NestJS (Framework backend en Node.js)
     TypeScript (Tipado estático para JavaScript)
@@ -18,7 +18,7 @@ Tecnologías Utilizadas
 
 
 
-   Características
+   ##Características
 
     Gestión de categorías: CRUD de categorías con precarga desde un archivo JSON.
     Gestión de productos: CRUD de productos asociados a categorías.
@@ -29,7 +29,7 @@ Tecnologías Utilizadas
 
 
 
-    📂 Estructura del Proyecto
+ ##📂 Estructura del Proyecto
 
       src/
        ├── categories/
@@ -53,7 +53,7 @@ Tecnologías Utilizadas
 
 
 
-Instalación y Configuración
+##Instalación y Configuración
 1️⃣ Clonar el repositorio
 
     git clone https://github.com/Vein22/ProjectM4-BackEnd.git
@@ -86,8 +86,6 @@ Instalación y Configuración
 
     JWT_SECRET=tu_jwt_secreto
 
-
-
 4️⃣ Ejecutar el proyecto
 Modo desarrollo
 
@@ -104,7 +102,7 @@ Modo producción
 
 
 
-🧪 Pruebas  
+##🧪 Pruebas  
 Para ejecutar las pruebas unitarias:  
 
 
@@ -112,14 +110,16 @@ Para ejecutar las pruebas unitarias:
 
 
 
-📖 Documentación API con Swagger  
+##📖 Documentación API con Swagger  
+
 Una vez que el servidor esté en ejecución, puedes acceder a la documentación interactiva en:  
 
     http://localhost:4000/api
 
 
 
-🔥 Seeders (Carga Inicial de Datos)
+##🔥 Seeders (Carga Inicial de Datos)
+
 Para precargar categorías y productos, ejecuta:
 
     curl -X POST http://localhost:3000/categories/seeder
@@ -127,14 +127,14 @@ Para precargar categorías y productos, ejecuta:
 
 
 
-🐳 Uso con Docker
+##🐳 Uso con Docker
 Para ejecutar el proyecto en Docker, usa:
 
     docker compose up -d
 
 
 
-📌 Endpoints Principales
+##📌 Endpoints Principales
 | Método | Endpoint               | Descripción               |
 |--------|------------------------|---------------------------|
 | POST   | `/Auth/signup`         | Registro de usuarios      |
@@ -146,6 +146,6 @@ Para ejecutar el proyecto en Docker, usa:
 
 
 
-📜 Licencia
+##📜 Licencia
 
     Este proyecto está bajo la MIT License.
