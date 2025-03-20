@@ -67,7 +67,7 @@ Este proyecto es una API RESTful para un e-commerce, desarrollada con NestJS y T
 
     Copia el archivo .env.example y renómbralo como .env, luego completa las variables:
 
-# ------------ DATA CONFIG ------------
+ ------------ DATA CONFIG ------------
 
     DB_HOST = tu_db_host
     DB_PORT = tu_db_port
@@ -78,11 +78,11 @@ Este proyecto es una API RESTful para un e-commerce, desarrollada con NestJS y T
     CLOUDINARY_API_SECRET = tu_cloudinary_secret
     CLOUDINARY_API_KEY = tu_cloudinary_key
 
-# ------------ SERVER CONFIG ------------
+ ------------ SERVER CONFIG ------------
 
     PORT = 4000
 
-# ------------ JWT CONFIG ------------
+ ------------ JWT CONFIG ------------
 
     JWT_SECRET=tu_jwt_secreto
 
